@@ -1,0 +1,10 @@
+[package]
+name = "safe-discriminant"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+safe-discriminant-derive = {workspace = true}
+
+[dev-dependencies]
+trybuild = { workspace = true }

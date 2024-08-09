@@ -1,0 +1,10 @@
+[package]
+name = "safe-discriminant-derive"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+proc-macro2 = { workspace = true }
+quote = { workspace = true }
+syn = { workspace = true }
+
