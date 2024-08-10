@@ -2,6 +2,9 @@
 name = "safe-discriminant-derive"
 version = "0.1.0"
 edition = "2021"
+readme = "../Readme.md"
+license = "Apache-3.0"
+keywords = ["no_std", "enums"]
 
 [lib]
 proc-macro = true

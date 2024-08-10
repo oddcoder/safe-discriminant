@@ -2,7 +2,9 @@
 name = "safe-discriminant"
 version = "0.1.0"
 edition = "2021"
-
+readme = "../Readme.md"
+license = "Apache-3.0"
+keywords = ["no_std", "enums"]
 [dependencies]
 safe-discriminant-derive = {workspace = true}
 
