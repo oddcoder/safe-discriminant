@@ -1,3 +1,6 @@
+
+pub use safe_discriminant_derive::Discriminant;
+
 /// <div class="warning">
 ///
 /// # Hazmat
