@@ -1,0 +1,5 @@
+error: Missing explicit discriminant. Note: If you want to reason about discriminants, but do not care about concrete values, consider using `core::mem::Discriminant` instead.
+ --> tests/fail/missing_one_disc.rs:7:5
+  |
+7 |     B,
+  |     ^

@@ -28,3 +28,13 @@ pub unsafe trait Discriminant {
         unsafe { *<*const _>::from(self).cast() }
     }
 }
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn test_discriminant() {
+        let t = trybuild::TestCases::new();
+        t.pass("tests/pass/*.rs");
+        t.compile_fail("tests/fail/*.rs")
+    }
+}
