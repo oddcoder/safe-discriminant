@@ -1,3 +1,4 @@
+#![no_std]
 //! The [Discriminant] trait, along with its corresponding derive macro,
 //! offers a constant-time and safe method for extracting the primitive
 //! form of the discriminant value for enums.
