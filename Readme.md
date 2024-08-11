@@ -1,10 +1,12 @@
 # safe-discriminant
 
-`safe-discriminant` offers a minimalistic, `no_std` compatiable, zero cost trait + procedural macro for extraction of discriminant out of enums.
+`safe-discriminant` offers a minimalistic, `no_std` compatiable, zero cost
+trait + procedural macro for extraction of discriminant out of enums.
 
 ## Installation
 
-This crate is available on crates.io and can be used by adding the following to your project's Cargo.toml:
+This crate is available on crates.io and can be used by adding the following to
+your project's Cargo.toml:
 
 ```toml
 [dependencies]
@@ -37,5 +39,11 @@ fn main() {
     assert_eq!(b.discriminant(), -1);
     assert_eq!(c.discriminant(), -2);
 }
-
 ```
+
+## Similar Projects
+
+* [strum](https://crates.io/crates/strum) offers a collection of macros for
+  simplifying working with enums. One of those macros is
+  [`EnumDiscriminants`](https://docs.rs/strum_macros/latest/strum_macros/derive.EnumDiscriminants.html).
+  `EnumDiscriminants` extracts the name of each variant of the enum into a separate enum.
