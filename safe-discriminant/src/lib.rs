@@ -55,6 +55,7 @@ pub unsafe trait Discriminant {
     /// `#[repr(u*)]` or `#[repr(i*)]`.
     type Selector: Copy;
     /// Returns the discriminant value of enum variant we are using.
+    #[inline(always)]
     fn discriminant(&self) -> Self::Selector {
         unsafe { *<*const _>::from(self).cast() }
     }
