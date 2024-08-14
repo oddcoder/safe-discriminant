@@ -47,7 +47,7 @@ pub use safe_discriminant_derive::Discriminant;
 /// for its discriminant.
 /// That cannot be done for enums using the default representation,
 /// however, as it’s undefined what layout the discriminant has
-/// and where it’s stored — it might not evenbe stored at all!
+/// and where it’s stored — it might not even be stored at all!
 /// The derive macro should take care of checking that it is always safe to call this function.
 
 pub unsafe trait Discriminant {
