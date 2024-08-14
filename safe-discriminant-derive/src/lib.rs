@@ -17,19 +17,6 @@ fn is_prim(path: &Path) -> bool {
     false
 }
 
-/// combine an iterator of errors to single error.
-/// Returns `Ok(())` if there is no errors to combine, other wise return `Err(t)` where t is the aggregate of all
-/// errors in the iterator
-fn errors_to_error<I: Iterator<Item = Error>>(mut errors: I) -> Result<()> {
-    let Some(mut e1) = errors.next() else {
-        return Ok(());
-    };
-    for e in errors {
-        e1.combine(e);
-    }
-    Err(e1)
-}
-
 /// Gets the primitive type x in `#[repr(x)]` from the list of attributes
 /// spassed to enums.
 /// Returns an error if no valid primitive is found.
@@ -58,26 +45,30 @@ fn get_enum_repr_prim(attrs: &[Attribute], error_span: Span) -> Result<Path> {
     }
 }
 
-fn valiate_single_variant(v: Variant) -> Result<()> {
-    if v.discriminant.is_some() {
-        Ok(())
-    } else {
-        Err(Error::new(
+fn valiate_single_variant(v: Variant) -> Option<Error> {
+    if v.discriminant.is_none() {
+        Some(Error::new(
             v.span(),
             "Missing explicit discriminant. Note: If you want to reason about \
             discriminants, but do not care about concrete values, consider \
             using `core::mem::Discriminant` instead.",
         ))
+    } else {
+        None
     }
 }
 
 /// Validates that all enum variants have discriminants. If more than one
 /// variant is missing a discriminant, errors shall be aggregated.
 fn validate_all_variants(variants: impl Iterator<Item = Variant>) -> Result<()> {
-    let (_, errors): (Vec<_>, Vec<_>) = variants
-        .map(valiate_single_variant)
-        .partition(Result::is_ok);
-    errors_to_error(errors.into_iter().map(|e| e.err().unwrap()))
+    variants
+        .filter_map(valiate_single_variant)
+        .reduce(|mut acc, e| {
+            acc.combine(e);
+            acc
+        })
+        .map(Err)
+        .unwrap_or(Ok(()))
 }
 
 /// Constructs Discriminant trait implementation for given enum.
