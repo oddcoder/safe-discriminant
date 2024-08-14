@@ -1,4 +1,4 @@
-error: Discriminant requires a `#[repr(x)] where x is one of u8, i8, u16, i16, u32, i32, u64, i64.
+error: Discriminant requires a `#[repr(x)] where x is one of u8, i8, u16, i16, u32, i32, u64, i64, u128, i128.
  --> tests/fail/repr_c_only.rs:5:10
   |
 5 | pub enum Foo {

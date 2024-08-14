@@ -3,7 +3,9 @@ use proc_macro2::Span;
 use quote::quote;
 use syn::{parse_macro_input, spanned::Spanned, Attribute, Error, ItemEnum, Path, Result, Variant};
 
-const PRIM_VALUES: [&str; 8] = ["u8", "i8", "u16", "i16", "u32", "i32", "u64", "i64"];
+const PRIM_VALUES: [&str; 10] = [
+    "u8", "i8", "u16", "i16", "u32", "i32", "u64", "i64", "u128", "i128",
+];
 
 /// checks if `path` is in list `PRIM_VALUES`
 fn is_prim(path: &Path) -> bool {
