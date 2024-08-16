@@ -1,3 +1,9 @@
+error: conflicting representation hints
+ --> tests/fail/multi_repr.rs:4:15
+  |
+4 | #[repr(C, u8, i8)]
+  |               ^^
+
 error[E0566]: conflicting representation hints
  --> tests/fail/multi_repr.rs:4:8
   |

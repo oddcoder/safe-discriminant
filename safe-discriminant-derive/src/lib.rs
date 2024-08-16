@@ -26,12 +26,21 @@ fn get_enum_repr_prim(attrs: &[Attribute], error_span: Span) -> Result<Path> {
         if !attr.path().is_ident("repr") {
             continue;
         }
-        let _ = attr.parse_nested_meta(|meta| {
-            if is_prim(&meta.path) {
-                prim = Some(meta.path);
+        attr.parse_nested_meta(|meta| {
+            if !is_prim(&meta.path) {
+                return Ok(());
             }
+            if prim.is_some() {
+                return Err(Error::new(
+                    // TODO join meta.path span with prim span
+                    // but the function is currently nightly only
+                    meta.path.span(),
+                    "conflicting representation hints",
+                ));
+            }
+            prim = Some(meta.path);
             Ok(())
-        });
+        })?;
     }
     match prim {
         Some(prim) => Ok(prim),
