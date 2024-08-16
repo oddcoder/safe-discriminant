@@ -5,6 +5,9 @@ edition = "2021"
 readme = "../Readme.md"
 license = "Apache-3.0"
 keywords = ["no_std", "enums"]
+description = """A minimalistic, `no_std` compatible trait and procedural macro \
+                 for extracting discriminants from enums at zero cost.""""
+
 [dependencies]
 safe-discriminant-derive = {workspace = true}
 
