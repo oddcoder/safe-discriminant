@@ -51,12 +51,12 @@ pub use safe_discriminant_derive::Discriminant;
 /// The derive macro should take care of checking that it is always safe to call this function.
 
 pub unsafe trait Discriminant {
-    /// The type of *discriminant*, it is often represented by the type inside
+    /// The type of *discriminant*, it is represented by the type inside
     /// `#[repr(u*)]` or `#[repr(i*)]`.
-    type Selector: Copy;
+    type Repr: Copy;
     /// Returns the discriminant value of enum variant we are using.
     #[inline(always)]
-    fn discriminant(&self) -> Self::Selector {
+    fn discriminant(&self) -> Self::Repr {
         unsafe { *<*const _>::from(self).cast() }
     }
 }

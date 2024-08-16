@@ -82,7 +82,7 @@ fn derive_discriminant_inner(tagged_enum: ItemEnum) -> Result<TokenStream> {
     let generics = tagged_enum.generics;
     let derive = quote! {
         unsafe impl #generics safe_discriminant::Discriminant for #name #generics {
-            type Selector = #prim;
+            type Repr = #prim;
         }
     };
     Ok(derive.into())
