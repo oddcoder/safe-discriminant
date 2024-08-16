@@ -7,7 +7,9 @@ license = "Apache-3.0"
 keywords = ["no_std", "enums"]
 description = """A minimalistic, `no_std` compatible trait and procedural macro \
                  for extracting discriminants from enums at zero cost.""""
-
+documentation = "https://docs.rs/safe_discriminant"
+homepage = "https://docs.rs/safe_discriminant"
+repository = "https://github.com/oddcoder/safe-discriminant"
 [dependencies]
 safe-discriminant-derive = {workspace = true}
 
