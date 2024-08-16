@@ -3,7 +3,7 @@ name = "safe-discriminant-derive"
 version = "0.1.0"
 edition = "2021"
 readme = "../Readme.md"
-license = "Apache-3.0"
+license = "BSD-3-Clause"
 keywords = ["no_std", "enums"]
 description = """A minimalistic, `no_std` compatible trait and procedural macro \
                  for extracting discriminants from enums at zero cost.""""
