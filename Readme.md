@@ -12,7 +12,7 @@ your project by:
 * Adding the following line to your Cargo.toml:
   ```toml
   [dependencies]
-  safe-discriminant = "0.1.0"
+  safe-discriminant = "0.2.0"
   ```
 * Or runing this command in your cargo project:
   ```sh
