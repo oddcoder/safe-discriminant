@@ -6,7 +6,7 @@ readme = "../Readme.md"
 license = "BSD-3-Clause"
 keywords = ["no_std", "enums"]
 description = """A minimalistic, `no_std` compatible trait and procedural macro \
-                 for extracting discriminants from enums at zero cost.""""
+                 for extracting discriminants from enums at zero cost."""
 documentation = "https://docs.rs/safe_discriminant"
 homepage = "https://docs.rs/safe_discriminant"
 repository = "https://github.com/oddcoder/safe-discriminant"
