@@ -125,3 +125,11 @@ pub fn remove_repr(_: TokenStream, item: TokenStream) -> TokenStream {
     }
     .into()
 }
+
+#[cfg(feature = "test-utils")]
+/// This macro is fake `#[repr(_)]` attribute, it will be a problem if we
+/// can trick the macro system into thinking this is the real #[repr(_)]
+#[proc_macro_attribute]
+pub fn repr(_: TokenStream, item: TokenStream) -> TokenStream {
+    item
+}
