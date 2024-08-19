@@ -15,3 +15,4 @@ safe-discriminant-derive = {workspace = true}
 
 [dev-dependencies]
 trybuild = { workspace = true }
+safe-discriminant-derive = {workspace = true, features = ["test-utils"]}

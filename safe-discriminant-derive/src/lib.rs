@@ -110,3 +110,18 @@ pub fn derive_discriminant(item: TokenStream) -> TokenStream {
         Ok(s) => s,
     }
 }
+
+#[cfg(feature = "test-utils")]
+/// This macro will remove `#[repr(_)]` from any given enum.
+/// This is only used for testing.
+#[proc_macro_attribute]
+pub fn remove_repr(_: TokenStream, item: TokenStream) -> TokenStream {
+    let mut tagged_enum = parse_macro_input!(item as ItemEnum);
+    tagged_enum
+        .attrs
+        .retain(|attr| !attr.path().is_ident("repr"));
+    quote! {
+        #tagged_enum
+    }
+    .into()
+}
