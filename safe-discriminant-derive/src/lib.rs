@@ -148,3 +148,10 @@ pub fn remove_repr(_: TokenStream, item: TokenStream) -> TokenStream {
 pub fn repr(_: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
+
+#[cfg(feature = "test-utils")]
+/// exactly as the name suggests!
+#[proc_macro_attribute]
+pub fn do_nothing(_: TokenStream, item: TokenStream) -> TokenStream {
+    item
+}

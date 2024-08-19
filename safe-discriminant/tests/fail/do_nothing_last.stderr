@@ -1,0 +1,5 @@
+error: Discriminant is not compatiable with any top level `#[attr]` except `#[repr(_)]`.
+ --> tests/fail/do_nothing_last.rs:7:10
+  |
+7 | pub enum Foo {
+  |          ^^^
