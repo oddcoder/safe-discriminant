@@ -155,3 +155,12 @@ pub fn repr(_: TokenStream, item: TokenStream) -> TokenStream {
 pub fn do_nothing(_: TokenStream, item: TokenStream) -> TokenStream {
     item
 }
+
+#[cfg(feature = "test-utils")]
+/// This macro will remove the discriminant of any enum field it is applied to
+#[proc_macro_attribute]
+pub fn remove_disc(_: TokenStream, item: TokenStream) -> TokenStream {
+    let mut variant = parse_macro_input!(item as Variant);
+    variant.discriminant = None;
+    quote!(#variant).into()
+}

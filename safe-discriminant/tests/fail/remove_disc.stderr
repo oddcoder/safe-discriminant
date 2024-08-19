@@ -1,0 +1,5 @@
+error: expected non-macro attribute, found attribute macro `remove_disc`
+ --> tests/fail/remove_disc.rs:6:7
+  |
+6 |     #[remove_disc]
+  |       ^^^^^^^^^^^ not a non-macro attribute
