@@ -1,6 +1,7 @@
 use proc_macro::TokenStream;
 use proc_macro2::Span;
 use quote::quote;
+use std::concat;
 use syn::{parse_macro_input, spanned::Spanned, Attribute, Error, ItemEnum, Path, Result, Variant};
 
 const PRIM_VALUES: [&str; 10] = [
@@ -58,9 +59,11 @@ fn valiate_single_variant(v: Variant) -> Option<Error> {
     if v.discriminant.is_none() {
         Some(Error::new(
             v.span(),
-            "Missing explicit discriminant. Note: If you want to reason about \
-            discriminants, but do not care about concrete values, consider \
-            using `core::mem::Discriminant` instead.",
+            concat!(
+                "Missing explicit discriminant. Note: If you want to reason about ",
+                "discriminants, but do not care about concrete values, consider ",
+                "using `core::mem::Discriminant` instead."
+            ),
         ))
     } else {
         None
