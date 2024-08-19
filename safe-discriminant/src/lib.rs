@@ -11,6 +11,8 @@
 //!
 //! 2. All enum variants have explicit discriminants.
 //!
+//! 3. Except for `#[repr(x)]`, there are no `#[attr]` style proc-macros
+//!    after `#[derive(Discriminant)]`.
 //! # Usage
 //!
 //! To use this macro, simply annotate your enum with `#[derive(Discriminant)]` as follows:

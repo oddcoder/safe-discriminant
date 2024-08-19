@@ -116,7 +116,8 @@ fn derive_discriminant_inner(tagged_enum: ItemEnum) -> Result<TokenStream> {
 }
 
 /// Top level derive macro for `Discriminant` trait. For more information
-/// on how to use refer to `safe-discriminant` crate.
+/// on how to use refer to
+/// [`safe-discriminant`](https://docs.rs/safe-discriminant) crate.
 #[proc_macro_derive(Discriminant)]
 pub fn derive_discriminant(item: TokenStream) -> TokenStream {
     let tagged_enum = parse_macro_input!(item as ItemEnum);
