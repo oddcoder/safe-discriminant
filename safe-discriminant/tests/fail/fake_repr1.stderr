@@ -1,0 +1,14 @@
+error[E0659]: `repr` is ambiguous
+ --> tests/fail/fake_repr1.rs:7:3
+  |
+7 | #[repr(u8)]
+  |   ^^^^ ambiguous name
+  |
+  = note: ambiguous because of a name conflict with a builtin attribute
+  = note: `repr` could refer to a built-in attribute
+note: `repr` could also refer to the attribute macro imported here
+ --> tests/fail/fake_repr1.rs:4:5
+  |
+4 | use safe_discriminant_derive::repr;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  = help: use `crate::repr` to refer to this attribute macro unambiguously

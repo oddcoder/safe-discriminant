@@ -83,13 +83,28 @@ fn validate_all_variants(variants: impl Iterator<Item = Variant>) -> Result<()> 
         .unwrap_or(Ok(()))
 }
 
+/// Returns true if there is any #[x] where x is not `repr`
+/// returns false otherwise.
+fn contains_attribute_macros(attrs: &[Attribute]) -> bool {
+    attrs.iter().any(|attr| !attr.path().is_ident("repr"))
+}
 /// Constructs Discriminant trait implementation for given enum.
 /// Returns error in one of two cases:
 /// 1- No valid `#[repr(x)]` is found.
 /// 2- Any of the enum variants is missing discriminant.
+/// 3- contains any additional top level attribute macros.
 fn derive_discriminant_inner(tagged_enum: ItemEnum) -> Result<TokenStream> {
     let prim = get_enum_repr_prim(&tagged_enum.attrs, tagged_enum.ident.span())?;
     validate_all_variants(tagged_enum.variants.into_iter())?;
+    if contains_attribute_macros(&tagged_enum.attrs) {
+        return Err(Error::new(
+            tagged_enum.ident.span(),
+            concat!(
+                "Discriminant is not compatiable with any top ",
+                "level `#[attr]` except `#[repr(_)]`."
+            ),
+        ));
+    }
     let name = tagged_enum.ident;
     let generics = tagged_enum.generics;
     let derive = quote! {
@@ -109,4 +124,34 @@ pub fn derive_discriminant(item: TokenStream) -> TokenStream {
         Err(e) => e.to_compile_error().into(),
         Ok(s) => s,
     }
+}
+
+#[cfg(feature = "test-utils")]
+/// This macro will remove `#[repr(_)]` from any given enum.
+/// This is only used for testing.
+#[proc_macro_attribute]
+pub fn remove_repr(_: TokenStream, item: TokenStream) -> TokenStream {
+    let mut tagged_enum = parse_macro_input!(item as ItemEnum);
+    tagged_enum
+        .attrs
+        .retain(|attr| !attr.path().is_ident("repr"));
+    quote! {
+        #tagged_enum
+    }
+    .into()
+}
+
+#[cfg(feature = "test-utils")]
+/// This macro is fake `#[repr(_)]` attribute, it will be a problem if we
+/// can trick the macro system into thinking this is the real #[repr(_)]
+#[proc_macro_attribute]
+pub fn repr(_: TokenStream, item: TokenStream) -> TokenStream {
+    item
+}
+
+#[cfg(feature = "test-utils")]
+/// exactly as the name suggests!
+#[proc_macro_attribute]
+pub fn do_nothing(_: TokenStream, item: TokenStream) -> TokenStream {
+    item
 }
