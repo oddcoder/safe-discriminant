@@ -83,13 +83,28 @@ fn validate_all_variants(variants: impl Iterator<Item = Variant>) -> Result<()> 
         .unwrap_or(Ok(()))
 }
 
+/// Returns true if there is any #[x] where x is not `repr`
+/// returns false otherwise.
+fn contains_attribute_macros(attrs: &[Attribute]) -> bool {
+    attrs.iter().any(|attr| !attr.path().is_ident("repr"))
+}
 /// Constructs Discriminant trait implementation for given enum.
 /// Returns error in one of two cases:
 /// 1- No valid `#[repr(x)]` is found.
 /// 2- Any of the enum variants is missing discriminant.
+/// 3- contains any additional top level attribute macros.
 fn derive_discriminant_inner(tagged_enum: ItemEnum) -> Result<TokenStream> {
     let prim = get_enum_repr_prim(&tagged_enum.attrs, tagged_enum.ident.span())?;
     validate_all_variants(tagged_enum.variants.into_iter())?;
+    if contains_attribute_macros(&tagged_enum.attrs) {
+        return Err(Error::new(
+            tagged_enum.ident.span(),
+            concat!(
+                "Discriminant is not compatiable with any top ",
+                "level `#[attr]` except `#[repr(_)]`."
+            ),
+        ));
+    }
     let name = tagged_enum.ident;
     let generics = tagged_enum.generics;
     let derive = quote! {
