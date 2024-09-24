@@ -7,7 +7,7 @@ you don’t have to worry about it.
 
 ## Installation
 
-This crate is available on [crates.io](crates.io) and can be easily included in
+This crate is available on [crates.io](https://crates.io/crates/safe-discriminant) and can be easily included in
 your project by:
 * Adding the following line to your Cargo.toml:
   ```toml
